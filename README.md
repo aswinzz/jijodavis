@@ -1,6 +1,6 @@
 # jijodavis.com
 
-Static website for Jijo Davis, personal trainer and physique coach. It has no framework and no dependencies. You only need Node to run the helper scripts.
+Static website for Jijo Davis, personal trainer and physique coach. It has no framework and no dependencies. You only need Node to run the helper scripts..
 
 ## Changing the site
 
