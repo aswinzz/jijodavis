@@ -1,0 +1,11 @@
+{
+  "name": "jijodavis.com",
+  "private": true,
+  "description": "Website for Jijo Davis — personal trainer & physique coach",
+  "type": "module",
+  "scripts": {
+    "images": "node scripts/sync-images.mjs",
+    "dev": "node scripts/sync-images.mjs && node scripts/dev.mjs",
+    "build": "node scripts/sync-images.mjs"
+  }
+}

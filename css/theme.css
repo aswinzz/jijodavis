@@ -1,0 +1,91 @@
+/* =============================================================
+   THEME — the single source of truth for colour, type & spacing.
+   Every other stylesheet uses ONLY these variables.
+   Change a value here and the whole site follows.
+   ============================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Urbanist:wght@400;500;600;700&display=swap");
+
+:root {
+  /* ---- Colour palette ------------------------------------------------
+     "Iron & Chalk": cold steel tones from gym iron, chalk-white type,
+     and a deep crimson taken from Jijo's training kit.                */
+  --slate-950: #0c1014;   /* page background — cold, blue-black steel   */
+  --slate-900: #12171c;   /* raised surfaces                             */
+  --slate-800: #1b2229;   /* cards, inputs                               */
+  --slate-600: #3a4651;   /* borders on hover, dividers                  */
+  --steel-400: #6f7f8c;   /* the "quiet" half of two-tone headlines      */
+  --steel-200: #a9b5bf;   /* secondary body text                         */
+  --chalk:     #eceae4;   /* primary text — chalk white                  */
+  --crimson:   #c8102e;   /* brand accent — CTA, highlights              */
+  --crimson-hi:#e11d3a;   /* accent hover                                */
+  --whatsapp:  #25d366;
+
+  /* Semantic roles (use these in components) */
+  --bg:            var(--slate-950);
+  --surface:       var(--slate-900);
+  --surface-2:     var(--slate-800);
+  --line:          rgba(169, 181, 191, 0.12);
+  --line-strong:   rgba(169, 181, 191, 0.28);
+  --text:          var(--chalk);
+  --text-quiet:    var(--steel-400);
+  --text-soft:     var(--steel-200);
+  --accent:        var(--crimson);
+  --accent-hover:  var(--crimson-hi);
+  --on-accent:     #ffffff;
+  --glass:         rgba(28, 36, 44, 0.55);
+  --glass-border:  rgba(236, 234, 228, 0.14);
+  --focus:         #ffffff;
+
+  /* ---- Typography ----------------------------------------------------- */
+  --font-display: "Archivo", "Arial Narrow", sans-serif;  /* condensed, heavy */
+  --font-body:    "Urbanist", system-ui, sans-serif;
+  --display-stretch: 68%;        /* condensed width for headings          */
+  --display-weight: 800;
+
+  /* Modular type scale (ratio 1.25, fluid for big sizes) */
+  --fs-xs:   0.8rem;
+  --fs-sm:   0.9rem;
+  --fs-base: 1.0625rem;
+  --fs-md:   1.25rem;
+  --fs-lg:   clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --fs-xl:   clamp(2.2rem, 1.6rem + 2.6vw, 3.6rem);
+  --fs-2xl:  clamp(3rem, 2rem + 5vw, 6rem);
+  --fs-hero: clamp(5.5rem, 2rem + 16vw, 17rem);
+  --lh-tight: 0.92;
+  --lh-snug:  1.15;
+  --lh-body:  1.6;
+
+  /* ---- Spacing / layout ---------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 5rem;
+  --space-9: clamp(5rem, 3rem + 8vw, 10rem);   /* vertical rhythm between sections */
+  --gutter:  clamp(1rem, 0.5rem + 3vw, 3.5rem);
+  --max-w:   1360px;
+  --measure: 62ch;
+
+  /* ---- Shape & depth -------------------------------------------------- */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --shadow-lift: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  --blur-glass: 18px;
+
+  /* ---- Motion --------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-med: 450ms;
+  --dur-slow: 1100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-med: 0ms; --dur-slow: 0ms; }
+}
