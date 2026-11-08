@@ -1,7 +1,7 @@
 {
   "name": "jijodavis.com",
   "private": true,
-  "description": "Website for Jijo Davis — personal trainer & physique coach",
+  "description": "Jijo Davis personal trainer & physique coach",
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev.mjs",
