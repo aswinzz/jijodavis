@@ -49,13 +49,20 @@ collections:
         fields:
           - name: photos
             label: Photos
-            label_singular: photo
-            hint: "New photos go to the top. Drag to change the order. The first ones show on the page straight away; the rest appear when visitors tap “Show more”."
+            hint: "Tap Browse to add photos. You can pick many at once. The website shows the LAST photo here FIRST, so new uploads appear at the top of the website automatically. To show a photo earlier on the website, move it further down this list."
+            widget: image
+            multiple: true
+            media_folder: /transformations
+            public_folder: /transformations
+          - name: captions
+            label: Captions (optional)
+            label_singular: caption
+            hint: "Add a caption to any photo above. Pick the photo, then type the caption."
             widget: list
-            add_to_top: true
             collapsed: true
             thumbnail: image
             summary: "{{caption}}"
+            required: false
             fields:
               - name: image
                 label: Photo
@@ -63,10 +70,9 @@ collections:
                 media_folder: /transformations
                 public_folder: /transformations
               - name: caption
-                label: Caption (optional)
-                hint: "For example: 12 weeks, 9 kg down. Leave empty for no caption."
+                label: Caption
+                hint: "For example: 12 weeks, 9 kg down"
                 widget: string
-                required: false
           - { name: heading, label: Section heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
           - { name: intro, label: Intro text, widget: text }
           - { name: initialCount, label: Photos shown before “Show more”, widget: number, value_type: int, min: 3, max: 60, default: 12 }
@@ -134,6 +140,16 @@ collections:
             fields:
               - { name: value, label: Number, widget: string }
               - { name: label, label: Label, widget: string }
+          - { name: achievementsHeading, label: Titles heading, widget: string, default: On stage }
+          - name: achievements
+            label: Competition titles
+            label_singular: title
+            hint: "Shown as a list under the numbers. Newest or biggest first."
+            widget: list
+            summary: "{{title}} · {{detail}}"
+            fields:
+              - { name: title, label: Title, widget: string, hint: "For example: Sr. Mr. Kerala" }
+              - { name: detail, label: Year or placing, widget: string, required: false, hint: "For example: 2023, or 4th place" }
 
       - name: services
         label: Coaching services

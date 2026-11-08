@@ -44,7 +44,9 @@ Drop files into `transformations/` or `certifications/`, then run:
 ```bash
 npm run images
 ```
-This converts HEIC to JPG (macOS) and adds any unlisted photo to the content files. New transformations go to the top. Photos that aren't listed in the content are not published.
+This converts HEIC to JPG (macOS) and adds any unlisted photo to the content files. Photos that aren't listed in the content are not published.
+
+`content/transformations.json` stores `photos` oldest → newest, because bulk uploads in the editor are added at the end. The site shows them newest first. Captions are a separate `captions` list of `{ image, caption }`.
 
 ## Build and deploy
 

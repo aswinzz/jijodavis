@@ -5,8 +5,9 @@
  * For people working on the code. Drop photos into transformations/ or
  * certifications/, run this, and they're added to the content files:
  *   1. Converts iPhone HEIC photos to JPG (macOS only, uses the built-in `sips`).
- *   2. Adds any photo that isn't listed yet to content/transformations.json
- *      (at the top, so it shows first) or content/certifications.json (at the end).
+ *   2. Adds any photo that isn't listed yet to the end of
+ *      content/transformations.json (the site shows the end first) or
+ *      content/certifications.json.
  *
  * Resizing and compression happen during `npm run build`, so originals can be
  * any size. HEIC originals are moved to _originals/.
@@ -35,21 +36,22 @@ function convertHeic(folder) {
   }
 }
 
-function addUnlisted(folder, file, listKey, makeItem, atTop) {
+function addUnlisted(folder, file, listKey, makeItem) {
   const path = join(ROOT, "content", file);
   const data = JSON.parse(readFileSync(path, "utf8"));
   const list = (data[listKey] ||= []);
-  const listed = new Set(list.map((it) => it.image));
+  const listed = new Set(list.map((it) => (typeof it === "string" ? it : it.image)));
   const fresh = readdirSync(join(ROOT, folder))
     .filter((f) => WEB_EXT.includes(extname(f).toLowerCase()) && !listed.has(`/${folder}/${f}`))
     .sort(byNumberThenName)
     .map((f) => makeItem(`/${folder}/${f}`));
   if (!fresh.length) return console.log(`✓ ${folder}: nothing new`);
-  data[listKey] = atTop ? [...fresh.reverse(), ...list] : [...list, ...fresh];
+  data[listKey] = [...list, ...fresh];
   writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
   console.log(`✓ ${folder}: added ${fresh.length} photo(s) to content/${file}`);
 }
 
 for (const folder of ["personal", "transformations", "certifications"]) convertHeic(folder);
-addUnlisted("transformations", "transformations.json", "photos", (image) => ({ image, caption: "" }), true);
-addUnlisted("certifications", "certifications.json", "items", (image) => ({ image, title: "Certification", issuer: "", year: "" }), false);
+// Transformations: appended to the end of the list, which the site shows first.
+addUnlisted("transformations", "transformations.json", "photos", (image) => image);
+addUnlisted("certifications", "certifications.json", "items", (image) => ({ image, title: "Certification", issuer: "", year: "" }));

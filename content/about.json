@@ -2,8 +2,8 @@
   "photo": "/personal/1.jpg",
   "heading": "The work *behind the work.*",
   "paragraphs": [
-    "I'm Jijo — a certified personal trainer and physique coach. I've spent years under the bar myself, and I coach the way I train: with structure, patience and honest feedback.",
-    "Whether it's your first month in a gym or your first bodybuilding show, I build the training, the nutrition and the habits around your life — then we adjust every week based on what your body actually does."
+    "I'm Jijo, a certified personal trainer, FSSA tutor and competing bodybuilder. I've spent years under the bar myself and I coach the way I train: with structure, patience and honest feedback.",
+    "Whether it's your first month in a gym or your first bodybuilding show, I build the training, the nutrition and the habits around your life. Then we adjust every week based on what your body actually does."
   ],
   "quote": "Same body weight. Better physique. That's what a real plan does.",
   "facts": [
@@ -12,12 +12,27 @@
       "label": "client transformations"
     },
     {
-      "value": "8",
-      "label": "certifications"
+      "value": "5",
+      "label": "bodybuilding titles"
     },
     {
-      "value": "1:1",
-      "label": "every client, every week"
+      "value": "12–16",
+      "label": "week transformation programs"
+    }
+  ],
+  "achievementsHeading": "On stage",
+  "achievements": [
+    {
+      "title": "Sr. Mr. Kerala",
+      "detail": "2023"
+    },
+    {
+      "title": "Mr. Thrissur",
+      "detail": "2015, 2017, 2020, 2023"
+    },
+    {
+      "title": "Dubai Muscle Show",
+      "detail": "4th place"
     }
   ]
 }

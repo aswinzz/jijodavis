@@ -128,6 +128,16 @@ export function renderPage(C, img) {
         ${heading(a.heading, "about")}
         ${(a.paragraphs || []).map((p) => `<p class="lead">${esc(p)}</p>`).join("")}
         ${a.facts?.length ? `<dl class="facts">${a.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>` : ""}
+        ${
+          a.achievements?.length
+            ? `<div class="titles">
+          <h3 class="titles__heading">${esc(a.achievementsHeading || "On stage")}</h3>
+          <ul class="titles__list">${a.achievements
+            .map((t) => `<li><span class="titles__name">${esc(t.title)}</span><span class="titles__detail">${esc(t.detail)}</span></li>`)
+            .join("")}</ul>
+        </div>`
+            : ""
+        }
       </div>
     </section>`;
   };

@@ -33,12 +33,23 @@ const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g
 /* ---------- content ---------- */
 export function loadContent() {
   const settings = readJSON("settings");
+  // Transformations are stored oldest → newest (bulk uploads land at the end),
+  // with captions in a separate list. The page shows the newest first.
+  const t = readJSON("transformations");
+  const captions = new Map((t.captions || []).filter((c) => c.image).map((c) => [c.image, c.caption || ""]));
+  const transformations = {
+    ...t,
+    photos: (t.photos || [])
+      .filter(Boolean)
+      .map((p) => (typeof p === "string" ? { image: p, caption: captions.get(p) || "" } : p))
+      .reverse(),
+  };
   return {
     ...settings,
     hero: readJSON("hero"),
     about: readJSON("about"),
     services: readJSON("services"),
-    transformations: readJSON("transformations"),
+    transformations,
     process: readJSON("process"),
     certifications: readJSON("certifications"),
     faq: readJSON("faq"),
@@ -192,6 +203,7 @@ export async function build({ quiet = false } = {}) {
     telephone: k.phone || undefined,
     areaServed: k.location || undefined,
     sameAs: k.instagram ? [`https://instagram.com/${k.instagram}`] : undefined,
+    award: (C.about?.achievements || []).map((t) => [t.title, t.detail].filter(Boolean).join(", ")),
     hasCredential: (certs.items || []).map((m) => ({
       "@type": "EducationalOccupationalCredential",
       name: m.title,

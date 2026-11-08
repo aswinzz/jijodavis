@@ -10,24 +10,28 @@ Everything on jijodavis.com can be changed from your phone. You don't need a com
 
 You stay signed in afterwards.
 
-## Adding a client transformation
+## Adding client transformations (one or many)
 
 1. Tap **Photos** → **Client transformations**.
-2. Tap **Add photo**. The new photo goes to the top of the list.
-3. Tap the empty photo box, then **Upload**, and pick the photo from your camera roll.
-4. Optional: type a caption, such as *12 weeks, 9 kg down*.
-5. Tap **Save** (top right).
+2. In the **Photos** box, tap **Browse**, then **Upload**, and select as many photos from your camera roll as you like.
+3. Tap **Save** (top right).
 
-The website updates about a minute later.
+The website updates about a minute later, and the new photos appear at the top of the gallery.
 
 Photos are shrunk automatically, so upload them straight from your camera roll. Before-and-after photos work best already joined side by side (most collage apps do this).
 
 ## Changing the order or removing a photo
 
-- **Reorder:** drag a photo by its handle, or use the **⋯** menu → Move Up / Move Down.
-- **Remove:** **⋯** menu → **Remove**. Then tap **Save**.
+The website shows the **last** photo in the list **first**, which is why new uploads appear at the top.
 
-The first 12 photos show on the page straight away. The rest appear when visitors tap "Show more".
+- **Show a photo earlier on the website:** move it further **down** the list, with **Move Down** or the **⋯** menu → Move to Bottom.
+- **Remove a photo:** tap the **✕** next to it, then **Save**.
+
+The first 12 photos show on the website straight away. The rest appear when visitors tap "Show more".
+
+## Adding a caption to a photo
+
+Captions are optional. Under **Captions**, tap **Add caption**, pick the photo, type the caption (e.g. *12 weeks, 9 kg down*) and tap **Save**.
 
 ## Adding a certificate
 
