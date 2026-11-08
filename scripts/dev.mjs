@@ -7,7 +7,17 @@ import { readFile, stat } from "node:fs/promises";
 import { watch, existsSync } from "node:fs";
 import { join, extname, normalize, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { build } from "./build.mjs";
+import { execFile } from "node:child_process";
+
+// Run each build in a fresh process, so edits to the build scripts are picked up too.
+const build = () =>
+  new Promise((resolve, reject) =>
+    execFile(process.execPath, [join(dirname(fileURLToPath(import.meta.url)), "build.mjs")], (err, stdout, stderr) => {
+      if (stdout.trim()) console.log(stdout.trim());
+      if (stderr.trim()) console.error(stderr.trim());
+      err ? reject(err) : resolve();
+    })
+  );
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public");
@@ -26,10 +36,10 @@ let running = Promise.resolve();
 const rebuild = (why) => {
   clearTimeout(timer);
   timer = setTimeout(() => {
-    running = running.then(() => build({ quiet: true }).then(() => console.log(`↻ rebuilt (${why})`))).catch((e) => console.error(e.message));
+    running = running.then(() => build().then(() => console.log(`↻ rebuilt (${why})`))).catch((e) => console.error(e.message));
   }, 150);
 };
-for (const dir of ["content", "src", "css", "js", "admin", "personal", "transformations", "certifications"]) {
+for (const dir of ["content", "src", "css", "js", "admin", "scripts", "personal", "transformations", "certifications"]) {
   const p = join(ROOT, dir);
   if (existsSync(p)) watch(p, { recursive: true }, (_, file) => rebuild(`${dir}/${file || ""}`));
 }

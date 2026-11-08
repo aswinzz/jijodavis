@@ -29,7 +29,8 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-img { display: block; max-width: 100%; }
+/* height: auto lets the width/height attributes reserve space without stretching the image */
+img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
 h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
@@ -195,11 +196,13 @@ ul, ol { padding: 0; list-style: none; }
 
 @media (max-width: 800px) {
   .hero { padding-top: 0; }
-  .hero__photo { width: 100%; bottom: 30%; }
+  /* start the photo below the fixed header so it never covers the face */
+  .hero__photo { width: 100%; top: 4.5rem; bottom: 30%; }
   .hero__photo img {
-    -webkit-mask-image: linear-gradient(to top, transparent 5%, #000 60%);
-    mask-image: linear-gradient(to top, transparent 5%, #000 60%);
-    object-position: center 10%;
+    -webkit-mask-image: linear-gradient(to top, transparent 5%, #000 60%), linear-gradient(to bottom, transparent 0%, #000 8%);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+    mask-image: linear-gradient(to top, transparent 5%, #000 60%), linear-gradient(to bottom, transparent 0%, #000 8%);
+    object-position: center top;
   }
   .hero__content { padding-top: 45svh; }
   .hero__line--indent { -webkit-text-stroke-width: 1.5px; }
@@ -329,10 +332,11 @@ ul, ol { padding: 0; list-style: none; }
 .cert__btn { display: block; width: 100%; text-align: left; }
 .cert__img {
   display: grid; place-items: center; aspect-ratio: 4 / 5; padding: var(--space-4);
+  grid-template: 100% / 100%; contain: size; /* every card the same size, whatever the photo's shape */
   background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-md);
   transition: transform var(--dur-med) var(--ease-out), border-color var(--dur-fast);
 }
-.cert__img img { max-height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 4px; box-shadow: var(--shadow-lift); user-select: none; -webkit-user-drag: none; }
+.cert__img img { max-height: 100%; width: auto; height: auto; max-width: 100%; object-fit: contain; border-radius: 4px; box-shadow: var(--shadow-lift); user-select: none; -webkit-user-drag: none; }
 .cert__btn:hover .cert__img { transform: translateY(-6px); border-color: var(--line-strong); }
 .cert__meta { display: grid; gap: var(--space-1); margin-top: var(--space-4); }
 .cert__title { font-weight: 700; line-height: 1.3; }
