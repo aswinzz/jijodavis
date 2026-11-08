@@ -6,6 +6,6 @@
   "scripts": {
     "images": "node scripts/sync-images.mjs",
     "dev": "node scripts/sync-images.mjs && node scripts/dev.mjs",
-    "build": "node scripts/sync-images.mjs"
+    "build": "node scripts/build.mjs"
   }
 }

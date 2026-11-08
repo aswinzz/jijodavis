@@ -48,7 +48,10 @@ Then open http://localhost:4321.
 ## Deploying
 
 Upload the whole folder to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
-- **Netlify / Vercel / Cloudflare Pages:** set the build command to `npm run build` and the output directory to `.` (the project root). The image list is then rebuilt on every deploy.
+- **Vercel:** works as-is. `vercel.json` sets the build command (`npm run build`) and the output directory (`public`).
+- **Netlify / Cloudflare Pages:** set the build command to `npm run build` and the output directory to `public`.
+
+`npm run build` refreshes the image list, then copies only the site files into `public/`. `reference-template/` and `_originals/` are left out, so they never get deployed.
 - **GitHub Pages:** run `npm run images` before you commit.
 
 Point `jijodavis.com` at the host using its custom-domain settings.
