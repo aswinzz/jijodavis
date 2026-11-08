@@ -3,29 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jijo Davis — Personal Trainer & Physique Coach</title>
-  <meta name="description" content="Jijo Davis is a certified personal trainer and physique coach in the UAE. In-person training, online coaching, contest prep and nutrition guidance." />
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}" />
   <meta name="theme-color" content="#0c1014" />
-  <link rel="canonical" href="https://jijodavis.com/" />
+  <link rel="canonical" href="{{url}}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://jijodavis.com/" />
-  <meta property="og:title" content="Jijo Davis — Personal Trainer & Physique Coach" />
-  <meta property="og:description" content="Certified personal trainer helping people lose fat, build muscle and step on stage." />
-  <meta property="og:image" content="https://jijodavis.com/personal/3.jpg" />
+  <meta property="og:url" content="{{url}}" />
+  <meta property="og:title" content="{{title}}" />
+  <meta property="og:description" content="{{description}}" />
+  <meta property="og:image" content="{{ogImage}}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c8102e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Narrow,Arial' font-weight='900' font-size='30' fill='white'%3EJD%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="personal/3.jpg" />
-  <link rel="stylesheet" href="css/theme.css" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Urbanist:wght@400;500;600;700&display=swap" />
+  {{preload}}
+  <link rel="stylesheet" href="{{css.theme}}" />
+  <link rel="stylesheet" href="{{css.styles}}" />
+  <script type="application/ld+json">{{jsonld}}</script>
 </head>
 <body>
-  <!-- Everything below is built from config.js by js/main.js -->
+  <!-- Built from content/*.json by scripts/build.mjs. Edit the content, not this file. -->
   <div class="progress" aria-hidden="true"><span></span></div>
-  <header class="site-header" id="top"></header>
-  <main id="main"></main>
-  <footer class="site-footer"></footer>
+  <header class="site-header" id="top">{{header}}</header>
+  <main id="main">{{main}}</main>
+  <footer class="site-footer">{{footer}}</footer>
 
   <dialog class="lightbox" aria-label="Image viewer">
     <button class="lightbox__close" type="button" aria-label="Close">
@@ -43,10 +47,6 @@
     </button>
   </dialog>
 
-  <noscript><p style="padding:2rem;color:#eceae4;background:#0c1014">Please enable JavaScript to view this site.</p></noscript>
-
-  <script src="config.js"></script>
-  <script src="js/images.js" onerror="window.SITE_IMAGES = null"></script>
-  <script src="js/main.js" defer></script>
+  <script src="{{js.main}}" defer></script>
 </body>
 </html>

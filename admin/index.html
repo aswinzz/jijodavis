@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Edit website · Jijo Davis</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c8102e'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Narrow,Arial' font-weight='900' font-size='30' fill='white'%3EJD%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Content editor (Sveltia CMS). Settings live in admin/config.yml. -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
+  <!-- Unversioned on purpose: Sveltia recommends always loading the latest release. -->
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <script>
+    // Sign-in runs through /api/auth on whatever address the editor is opened from.
+    CMS.init({ config: { backend: { base_url: location.origin } } });
+  </script>
+</body>
+</html>

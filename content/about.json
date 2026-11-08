@@ -1,0 +1,23 @@
+{
+  "photo": "/personal/1.jpg",
+  "heading": "The work *behind the work.*",
+  "paragraphs": [
+    "I'm Jijo — a certified personal trainer and physique coach. I've spent years under the bar myself, and I coach the way I train: with structure, patience and honest feedback.",
+    "Whether it's your first month in a gym or your first bodybuilding show, I build the training, the nutrition and the habits around your life — then we adjust every week based on what your body actually does."
+  ],
+  "quote": "Same body weight. Better physique. That's what a real plan does.",
+  "facts": [
+    {
+      "value": "36+",
+      "label": "client transformations"
+    },
+    {
+      "value": "8",
+      "label": "certifications"
+    },
+    {
+      "value": "1:1",
+      "label": "every client, every week"
+    }
+  ]
+}

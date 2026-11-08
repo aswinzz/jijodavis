@@ -1,0 +1,56 @@
+{
+  "site": {
+    "name": "Jijo Davis",
+    "domain": "jijodavis.com",
+    "role": "Personal Trainer & Physique Coach"
+  },
+  "seo": {
+    "title": "Jijo Davis — Personal Trainer & Physique Coach",
+    "description": "Jijo Davis is a certified personal trainer and physique coach in the UAE. In-person training, online coaching, contest prep and nutrition guidance.",
+    "shareImage": "/personal/3.jpg"
+  },
+  "contact": {
+    "whatsapp": "971500000000",
+    "phone": "+971 50 000 0000",
+    "email": "hello@jijodavis.com",
+    "instagram": "jijodavis",
+    "location": "Ajman · Sharjah · Dubai",
+    "whatsappGreeting": "Hi Jijo, I found you on jijodavis.com."
+  },
+  "sections": [
+    "hero",
+    "manifesto",
+    "about",
+    "services",
+    "transformations",
+    "process",
+    "certifications",
+    "faq",
+    "contact"
+  ],
+  "nav": [
+    {
+      "label": "Results",
+      "target": "transformations"
+    },
+    {
+      "label": "Coaching",
+      "target": "services"
+    },
+    {
+      "label": "How it works",
+      "target": "process"
+    },
+    {
+      "label": "Credentials",
+      "target": "certifications"
+    },
+    {
+      "label": "FAQ",
+      "target": "faq"
+    }
+  ],
+  "footer": {
+    "note": "Train with intent."
+  }
+}

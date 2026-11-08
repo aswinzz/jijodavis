@@ -1,0 +1,54 @@
+{
+  "heading": "Qualified *and registered.*",
+  "intro": "Internationally recognised qualifications. Tap a certificate to view it.",
+  "items": [
+    {
+      "image": "/certifications/1.jpg",
+      "title": "Certified Personal Trainer",
+      "issuer": "FSSA Council · EuropeActive standards",
+      "year": "2025"
+    },
+    {
+      "image": "/certifications/2.jpg",
+      "title": "Personal Trainer — EQF Level 4",
+      "issuer": "European Register of Exercise Professionals",
+      "year": "2025"
+    },
+    {
+      "image": "/certifications/3.jpg",
+      "title": "Registered Personal Trainer (Category A)",
+      "issuer": "REPs UAE",
+      "year": "2026"
+    },
+    {
+      "image": "/certifications/4.jpg",
+      "title": "Physique Transformation Specialist",
+      "issuer": "FSSA · CPD programme",
+      "year": "2026"
+    },
+    {
+      "image": "/certifications/5.jpg",
+      "title": "Functional Strength Training",
+      "issuer": "FSSA · CPD programme",
+      "year": "2025"
+    },
+    {
+      "image": "/certifications/6.jpg",
+      "title": "General Fitness Trainer",
+      "issuer": "Skill India · NCVET",
+      "year": "2025"
+    },
+    {
+      "image": "/certifications/7.jpg",
+      "title": "Basic First Aid, CPR & AED",
+      "issuer": "SAHSS · AHA 2020 guidelines",
+      "year": "2025"
+    },
+    {
+      "image": "/certifications/8.jpg",
+      "title": "REPs UAE membership card",
+      "issuer": "Register of Exercise Professionals UAE",
+      "year": "2026"
+    }
+  ]
+}

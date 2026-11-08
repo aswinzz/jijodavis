@@ -282,7 +282,7 @@ ul, ol { padding: 0; list-style: none; }
 .tile:hover::after { border-color: var(--text); }
 .tile__cap { position: absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-3); padding: var(--space-2) var(--space-3); font-size: var(--fs-sm); text-align: left; background: var(--glass); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: var(--radius-sm); }
 .gallery__more { display: flex; justify-content: center; margin-top: var(--space-6); }
-.gallery__more [hidden] { display: none; }
+.gallery__more [hidden], .tile[hidden] { display: none; }
 .empty { color: var(--text-soft); }
 @media (max-width: 520px) { .gallery { columns: 2; column-gap: var(--space-3); } .tile { margin-bottom: var(--space-3); } }
 @media (prefers-reduced-motion: reduce) { .tile { opacity: 1; transform: none; transition: none; } }

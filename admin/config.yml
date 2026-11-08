@@ -1,0 +1,258 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+#
+# Content editor settings for jijodavis.com/admin
+# Every "Publish" in the editor saves to GitHub, and Vercel rebuilds the site
+# about a minute later.
+
+backend:
+  name: github
+  repo: aswinzz/jijodavis
+  branch: master
+  auth_endpoint: api/auth   # login helper in api/auth.js (base_url is set in admin/index.html)
+  commit_messages:
+    create: "Add {{collection}} “{{slug}}”"
+    update: "Update {{collection}} “{{slug}}”"
+    delete: "Delete {{collection}} “{{slug}}”"
+    uploadMedia: "Upload “{{path}}”"
+    deleteMedia: "Delete “{{path}}”"
+
+site_url: https://jijodavis.com
+display_url: https://jijodavis.com
+
+# Default place for uploaded photos. Photo fields below override this.
+media_folder: /personal
+public_folder: /personal
+
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      # Phone photos are shrunk and converted in the browser before upload,
+      # so a 6 MB camera photo becomes a few hundred KB.
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+
+collections:
+  # ------------------------------------------------------------------ PHOTOS
+  - name: photos
+    label: Photos
+    icon: photo_library
+    editor: { preview: false }
+    files:
+      - name: transformations
+        label: Client transformations
+        file: content/transformations.json
+        fields:
+          - name: photos
+            label: Photos
+            label_singular: photo
+            hint: "New photos go to the top. Drag to change the order. The first ones show on the page straight away; the rest appear when visitors tap “Show more”."
+            widget: list
+            add_to_top: true
+            collapsed: true
+            thumbnail: image
+            summary: "{{caption}}"
+            fields:
+              - name: image
+                label: Photo
+                widget: image
+                media_folder: /transformations
+                public_folder: /transformations
+              - name: caption
+                label: Caption (optional)
+                hint: "For example: 12 weeks, 9 kg down. Leave empty for no caption."
+                widget: string
+                required: false
+          - { name: heading, label: Section heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - { name: intro, label: Intro text, widget: text }
+          - { name: initialCount, label: Photos shown before “Show more”, widget: number, value_type: int, min: 3, max: 60, default: 12 }
+          - { name: loadStep, label: Extra photos per “Show more” tap, widget: number, value_type: int, min: 3, max: 60, default: 12 }
+
+      - name: certifications
+        label: Certificates
+        file: content/certifications.json
+        fields:
+          - name: items
+            label: Certificates
+            label_singular: certificate
+            hint: "Drag to change the order."
+            widget: list
+            collapsed: true
+            thumbnail: image
+            summary: "{{title}} · {{year}}"
+            fields:
+              - name: image
+                label: Certificate photo
+                widget: image
+                media_folder: /certifications
+                public_folder: /certifications
+              - { name: title, label: Title, widget: string }
+              - { name: issuer, label: Issued by, widget: string, required: false }
+              - { name: year, label: Year, widget: string, required: false }
+          - { name: heading, label: Section heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - { name: intro, label: Intro text, widget: text }
+
+  # --------------------------------------------------------------- PAGE TEXT
+  - name: page
+    label: Page text
+    icon: edit_note
+    editor: { preview: false }
+    files:
+      - name: hero
+        label: Top of page
+        file: content/hero.json
+        fields:
+          - { name: photo, label: Main photo, widget: image, media_folder: /personal, public_folder: /personal }
+          - { name: firstName, label: First name, widget: string }
+          - { name: lastName, label: Last name, widget: string }
+          - { name: headline, label: Headline, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - { name: intro, label: Intro text, widget: text }
+          - { name: primaryCta, label: Main button text, widget: string }
+          - { name: secondaryCta, label: Second button text, widget: string }
+          - { name: badges, label: Badges under the buttons, label_singular: badge, widget: list, field: { name: badge, label: Badge, widget: string } }
+          - { name: marquee, label: Scrolling words strip, label_singular: word, widget: list, field: { name: word, label: Word, widget: string } }
+          - { name: manifesto, label: Big statement (lights up while scrolling), widget: text }
+
+      - name: about
+        label: About Jijo
+        file: content/about.json
+        fields:
+          - { name: photo, label: Photo, widget: image, media_folder: /personal, public_folder: /personal }
+          - { name: heading, label: Heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - { name: paragraphs, label: Paragraphs, label_singular: paragraph, widget: list, field: { name: paragraph, label: Paragraph, widget: text } }
+          - { name: quote, label: Quote on the photo, widget: string, required: false }
+          - name: facts
+            label: Numbers
+            label_singular: number
+            hint: "A value that starts with a number (like 36+) counts up when it scrolls into view."
+            widget: list
+            summary: "{{value}} {{label}}"
+            fields:
+              - { name: value, label: Number, widget: string }
+              - { name: label, label: Label, widget: string }
+
+      - name: services
+        label: Coaching services
+        file: content/services.json
+        fields:
+          - { name: heading, label: Heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - name: items
+            label: Services
+            label_singular: service
+            widget: list
+            summary: "{{title}}"
+            fields:
+              - { name: title, label: Name, widget: string }
+              - { name: format, label: Where, widget: string, hint: "For example: In person, Online, Anywhere" }
+              - { name: text, label: Description, widget: text }
+
+      - name: process
+        label: How it works
+        file: content/process.json
+        fields:
+          - { name: heading, label: Heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - name: steps
+            label: Steps
+            label_singular: step
+            hint: "Steps are numbered automatically in this order."
+            widget: list
+            summary: "{{title}}"
+            fields:
+              - { name: title, label: Step, widget: string }
+              - { name: text, label: Description, widget: text }
+
+      - name: faq
+        label: Questions (FAQ)
+        file: content/faq.json
+        fields:
+          - { name: heading, label: Heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - name: items
+            label: Questions
+            label_singular: question
+            widget: list
+            summary: "{{q}}"
+            fields:
+              - { name: q, label: Question, widget: string }
+              - { name: a, label: Answer, widget: text }
+
+      - name: contact
+        label: Contact form
+        file: content/contact.json
+        fields:
+          - { name: heading, label: Heading, widget: string, hint: "Words between *stars* show bright white; the rest is grey." }
+          - { name: text, label: Text, widget: text }
+          - { name: photo, label: Background photo (shown blurred), widget: image, required: false, media_folder: /personal, public_folder: /personal }
+          - { name: goals, label: Goal choices, label_singular: goal, widget: list, field: { name: goal, label: Goal, widget: string } }
+          - { name: formats, label: Training choices, label_singular: choice, widget: list, field: { name: format, label: Choice, widget: string } }
+          - { name: submitLabel, label: Button text, widget: string }
+
+  # ---------------------------------------------------------------- SETTINGS
+  - name: settings
+    label: Settings
+    icon: settings
+    editor: { preview: false }
+    files:
+      - name: settings
+        label: Contact details, Google & menu
+        file: content/settings.json
+        fields:
+          - name: contact
+            label: Contact details
+            widget: object
+            fields:
+              - { name: whatsapp, label: WhatsApp number, widget: string, hint: "Digits only, with country code. No + or spaces. Example: 971501234567", pattern: ['^\d{8,15}$', "Digits only, with country code, e.g. 971501234567"] }
+              - { name: phone, label: Phone (as shown on the site), widget: string, required: false }
+              - { name: email, label: Email, widget: string, required: false }
+              - { name: instagram, label: Instagram username, widget: string, required: false, hint: "Without the @" }
+              - { name: location, label: Areas you train in person, widget: string, required: false }
+              - { name: whatsappGreeting, label: First line of WhatsApp messages, widget: string }
+          - name: seo
+            label: Google & link previews
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string, hint: "Shown in Google results and browser tabs. Keep it under 60 characters." }
+              - { name: description, label: Description, widget: text, hint: "Shown under the title in Google. About 150 characters." }
+              - { name: shareImage, label: Preview photo, widget: image, hint: "Shown when the link is shared on WhatsApp, Instagram etc.", media_folder: /personal, public_folder: /personal }
+          - name: site
+            label: Name & role
+            widget: object
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: domain, label: Website address, widget: string, hint: "Without https://" }
+          - name: sections
+            label: Sections on the page (in order)
+            label_singular: section
+            hint: "Remove a section to hide it. Drag to reorder."
+            widget: list
+            field:
+              name: section
+              label: Section
+              widget: select
+              options: &sections
+                - { label: Top of page, value: hero }
+                - { label: Big statement, value: manifesto }
+                - { label: About Jijo, value: about }
+                - { label: Coaching services, value: services }
+                - { label: Client transformations, value: transformations }
+                - { label: How it works, value: process }
+                - { label: Certificates, value: certifications }
+                - { label: Questions (FAQ), value: faq }
+                - { label: Contact form, value: contact }
+          - name: nav
+            label: Top menu
+            label_singular: link
+            widget: list
+            summary: "{{label}}"
+            fields:
+              - { name: label, label: Link text, widget: string }
+              - { name: target, label: Goes to, widget: select, options: *sections }
+          - name: footer
+            label: Footer
+            widget: object
+            fields:
+              - { name: note, label: Footer line, widget: string }

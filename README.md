@@ -1,71 +1,69 @@
 # jijodavis.com
 
-Static website for Jijo Davis, personal trainer and physique coach. It has no framework and no dependencies. You only need Node to run the helper scripts
+Website for Jijo Davis, personal trainer and physique coach.
 
-## Changing the site
+- **Visitors** get a plain static page: the HTML is built ahead of time and photos are resized to WebP. There is no framework and no tracking.
+- **Jijo** edits text and photos at **jijodavis.com/admin** (from a phone or a laptop). Each save commits to GitHub, and Vercel republishes the site in about a minute. His guide is [docs/editing-guide.md](docs/editing-guide.md).
 
-| You want to… | Edit |
+## Where things live
+
+| What | Where |
 |---|---|
-| Change any text, services, FAQ, contact details, certificate titles, section order | `config.js` |
-| Change colours, fonts, spacing, corner radius, animation speed | `css/theme.css` |
-| Add or remove client transformation photos | drop files in `transformations/` → run `npm run images` |
-| Add a certificate | drop the image in `certifications/` → run `npm run images` → (optional) add a title in `config.js` |
-| Change the hero / about / contact photos | put photos in `personal/` and set the path in `config.js` |
-
-Search `config.js` for `TODO`: the WhatsApp number, phone, email, Instagram handle and service areas are still placeholders.
+| All text, photo lists, contact details, section order | `content/*.json` (edited through /admin) |
+| Photos | `personal/`, `transformations/`, `certifications/` (originals, any size) |
+| Colours, fonts, spacing, animation speed | `css/theme.css` |
+| Components | `css/styles.css` (uses only theme variables) |
+| Page HTML | `src/page.html` (head, SEO tags) + `src/render.mjs` (sections) |
+| Motion and interactions | `js/main.js` |
+| Editor setup (forms, labels, hints) | `admin/config.yml` |
+| Editor sign-in | `api/auth.js`, `api/callback.js` (Vercel functions) |
+| Build | `scripts/build.mjs` → `public/` |
 
 ### Two-tone headings
-In `config.js`, wrap the words that should be bright in `*stars*`; everything else shows in grey:
-```js
-heading: "Real clients. *Real results.*"
+Words between `*stars*` show bright; the rest shows in grey:
+```json
+"heading": "Real clients. *Real results.*"
 ```
 
 ### Hiding a section
-Remove its name from `sections: [...]` in `config.js`, or empty its list.
+Remove it from **Settings → Sections on the page**, or from `sections` in `content/settings.json`.
 
-## Photos
+## Local preview
 
 ```bash
-npm run images
+npm install
 ```
-This command:
-- converts iPhone HEIC photos to JPG (on macOS)
-- shrinks anything larger than 2000px
-- renames new files to the next number (`37.jpg`, `38.jpg`, …)
-- regenerates `js/images.js`, the list the gallery reads
-
-Originals of converted or resized photos are kept in `_originals/`. Transformations show newest first (highest number); set `newestFirst: false` in `config.js` to reverse this.
-
-If you forget to run the script, the gallery still finds photos named `1.jpg`, `2.jpg`, … in order. Running the script is still better.
-
-## Preview locally
-
 ```bash
 npm run dev
 ```
-Then open http://localhost:4321.
+- Site: http://localhost:4321. It rebuilds automatically when content, CSS, JS or photos change.
+- Editor: http://localhost:4321/admin/. Choose **Work with Local Repository** (Chrome or Edge) and pick this folder. That edits the files on your computer directly, with no sign-in.
 
-## Deploying
-
-Upload the whole folder to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
-- **Vercel:** works as-is. `vercel.json` sets the build command (`npm run build`) and the output directory (`public`).
-- **Netlify / Cloudflare Pages:** set the build command to `npm run build` and the output directory to `public`.
-
-`npm run build` refreshes the image list, then copies only the site files into `public/`. `reference-template/` and `_originals/` are left out, so they never get deployed.
-- **GitHub Pages:** run `npm run images` before you commit.
-
-Point `jijodavis.com` at the host using its custom-domain settings.
-
-## Files
-
+### Adding photos without the editor
+Drop files into `transformations/` or `certifications/`, then run:
+```bash
+npm run images
 ```
-index.html          page shell + SEO meta tags
-config.js           ← all content
-css/theme.css       ← all design tokens (colours, type, spacing, motion)
-css/styles.css      components (uses only theme variables)
-js/main.js          renders config + animations
-js/images.js        auto-generated image list
-scripts/            image sync + local dev server
-personal/  transformations/  certifications/
-reference-template/ design reference only (can be deleted before deploying)
-```
+This converts HEIC to JPG (macOS) and adds any unlisted photo to the content files. New transformations go to the top. Photos that aren't listed in the content are not published.
+
+## Build and deploy
+
+`npm run build` writes the finished site to `public/`:
+- `index.html`, prerendered from the content, with title, description, Open Graph tags, JSON-LD (Person + credentials), `robots.txt` and `sitemap.xml`
+- each photo in up to three widths (480, 960 and 1600px) as WebP with `srcset`, plus a 1200×630 share image
+- CSS and JS with content hashes in their file names; `vercel.json` caches `/img`, `/css` and `/js` for a year
+
+Resized photos are cached in `node_modules/.cache/jd-images`, so rebuilds only process new photos.
+
+Vercel builds on every push to `master`. `reference-template/` and `_originals/` are never published.
+
+## One-time setup for the editor sign-in
+
+1. **Create a GitHub OAuth app:** GitHub → Settings → Developer settings → OAuth Apps → New OAuth App.
+   - Homepage URL: `https://jijodavis.com`
+   - Authorization callback URL: `https://jijodavis.com/api/callback`
+   - Then click **Generate a new client secret**.
+2. **Add the keys in Vercel:** Project → Settings → Environment Variables. Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` for Production, then redeploy.
+3. **Give Jijo access:** he creates a free GitHub account. Then, in the repo, go to Settings → Collaborators → Add people → his username. He accepts the email invite.
+
+Sign-in only works on the domain in the callback URL. Before `jijodavis.com` points at Vercel, use the `*.vercel.app` address in both URLs, and change them once the domain is live.

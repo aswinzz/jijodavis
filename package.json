@@ -4,8 +4,11 @@
   "description": "Website for Jijo Davis — personal trainer & physique coach",
   "type": "module",
   "scripts": {
-    "images": "node scripts/sync-images.mjs",
-    "dev": "node scripts/sync-images.mjs && node scripts/dev.mjs",
-    "build": "node scripts/build.mjs"
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "images": "node scripts/sync-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
   }
 }

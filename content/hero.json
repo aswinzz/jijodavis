@@ -1,0 +1,24 @@
+{
+  "photo": "/personal/3.jpg",
+  "firstName": "Jijo",
+  "lastName": "Davis",
+  "headline": "Coaching *stronger bodies* for people *who mean it.*",
+  "intro": "Certified personal trainer helping people lose fat, build muscle and step on stage — in person across the UAE and online anywhere.",
+  "primaryCta": "Book a free consultation",
+  "secondaryCta": "See client results",
+  "badges": [
+    "REPs UAE registered",
+    "EREPS Level 4",
+    "FSSA certified"
+  ],
+  "marquee": [
+    "Fat loss",
+    "Muscle gain",
+    "Contest prep",
+    "Strength",
+    "Recomposition",
+    "Online coaching",
+    "Posing"
+  ],
+  "manifesto": "No crash diets. No copy-paste programs. Just a plan built around your body, your schedule and the food you actually eat — and a coach who checks in every week until the mirror agrees."
+}
