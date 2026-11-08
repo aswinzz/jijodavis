@@ -1,6 +1,6 @@
 # jijodavis.com
 
-Website for Jijo Davis, personal trainer and physique coach.
+Website for Jijo Davis, personal trainer and physique coach
 
 - **Visitors** get a plain static page: the HTML is built ahead of time and photos are resized to WebP. There is no framework and no tracking.
 - **Jijo** edits text and photos at **jijodavis.com/admin** (from a phone or a laptop). Each save commits to GitHub, and Vercel republishes the site in about a minute. His guide is [docs/editing-guide.md](docs/editing-guide.md).
