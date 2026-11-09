@@ -39,7 +39,7 @@ const rebuild = (why) => {
     running = running.then(() => build().then(() => console.log(`↻ rebuilt (${why})`))).catch((e) => console.error(e.message));
   }, 150);
 };
-for (const dir of ["content", "src", "css", "js", "admin", "scripts", "personal", "transformations", "certifications"]) {
+for (const dir of ["content", "src", "css", "js", "admin", "scripts", "static", "personal", "transformations", "certifications"]) {
   const p = join(ROOT, dir);
   if (existsSync(p)) watch(p, { recursive: true }, (_, file) => rebuild(`${dir}/${file || ""}`));
 }

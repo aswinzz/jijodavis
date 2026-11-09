@@ -224,7 +224,7 @@ collections:
               - { name: phone, label: Phone (as shown on the site), widget: string, required: false }
               - { name: email, label: Email, widget: string, required: false }
               - { name: instagram, label: Instagram username, widget: string, required: false, hint: "Without the @" }
-              - { name: location, label: Areas you train in person, widget: string, required: false }
+              - { name: location, label: Areas you train in person, widget: string, required: false, hint: "Separate places with commas, e.g. Ajman, Sharjah, Dubai. Google uses this list." }
               - { name: whatsappGreeting, label: First line of WhatsApp messages, widget: string }
           - name: seo
             label: Google & link previews

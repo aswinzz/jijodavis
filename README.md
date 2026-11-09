@@ -16,6 +16,7 @@ Website for Jijo Davis, personal trainer and physique coach.
 | Page HTML | `src/page.html` (head, SEO tags) + `src/render.mjs` (sections) |
 | Motion and interactions | `js/main.js` |
 | Editor setup (forms, labels, hints) | `admin/config.yml` |
+| Favicons and other files served as-is | `static/` (copied to the site root) |
 | Editor sign-in | `api/auth.js`, `api/callback.js` (Vercel functions) |
 | Build | `scripts/build.mjs` → `public/` |
 

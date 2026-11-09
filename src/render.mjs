@@ -76,7 +76,7 @@ export function renderPage(C, img) {
     return `
     <section class="hero" id="hero" aria-label="Introduction">
       <div class="hero__photo" aria-hidden="true">
-        ${img.tag(h.photo, { alt: "", sizes: "(max-width: 900px) 100vw, 58vw", priority: true })}
+        ${img.tag(h.photo, { alt: C.site?.name || "", sizes: "(max-width: 900px) 100vw, 58vw", priority: true })}
       </div>
       <div class="hero__content wrap">
         <h1 class="hero__name" aria-label="${esc(h.firstName)} ${esc(h.lastName)}">
@@ -238,7 +238,7 @@ export function renderPage(C, img) {
             return `
         <li class="cert">
           <button type="button" class="cert__btn" data-lb="certifications" data-full="${esc(img.full(m.image))}" data-caption="${esc(caption)}" data-alt="${esc(title)} certificate" aria-label="View ${esc(title)} certificate">
-            <span class="cert__img">${img.tag(m.image, { alt: "", sizes: "300px" })}</span>
+            <span class="cert__img">${img.tag(m.image, { alt: [m.title && `${m.title} certificate`, m.issuer && `from ${m.issuer}`].filter(Boolean).join(" ") || "Certificate", sizes: "300px" })}</span>
             <span class="cert__meta">
               <span class="cert__title">${esc(title)}</span>
               <span class="cert__issuer">${esc(m.issuer)}${m.year ? ` <span class="cert__year">${esc(m.year)}</span>` : ""}</span>

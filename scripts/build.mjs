@@ -191,24 +191,51 @@ export async function build({ quiet = false } = {}) {
     : "";
 
   const k = C.contact || {};
+  const imageUrl = shareImage ? new URL(shareImage, url).href : undefined;
+  // "Ajman · Sharjah · Dubai" -> three places Google can read
+  const areas = String(k.location || "").split(/[·,|/&]|\band\b/i).map((s) => s.trim()).filter(Boolean);
+  const personId = `${url}#person`;
   const jsonld = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: site.name,
-    jobTitle: site.role,
-    url,
-    image: shareImage ? new URL(shareImage, url).href : undefined,
-    description: C.seo?.description,
-    email: k.email || undefined,
-    telephone: k.phone || undefined,
-    areaServed: k.location || undefined,
-    sameAs: k.instagram ? [`https://instagram.com/${k.instagram}`] : undefined,
-    award: (C.about?.achievements || []).map((t) => [t.title, t.detail].filter(Boolean).join(", ")),
-    hasCredential: (certs.items || []).map((m) => ({
-      "@type": "EducationalOccupationalCredential",
-      name: m.title,
-      recognizedBy: m.issuer ? { "@type": "Organization", name: m.issuer } : undefined,
-    })),
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: site.name,
+        jobTitle: site.role,
+        url,
+        image: imageUrl,
+        description: C.seo?.description,
+        email: k.email || undefined,
+        telephone: k.phone || undefined,
+        sameAs: k.instagram ? [`https://instagram.com/${k.instagram}`] : undefined,
+        award: (C.about?.achievements || []).map((t) => [t.title, t.detail].filter(Boolean).join(", ")),
+        hasCredential: (certs.items || []).map((m) => ({
+          "@type": "EducationalOccupationalCredential",
+          name: m.title,
+          recognizedBy: m.issuer ? { "@type": "Organization", name: m.issuer } : undefined,
+        })),
+      },
+      {
+        // Local listing: a trainer who comes to the client (no street address)
+        "@type": "ProfessionalService",
+        "@id": `${url}#business`,
+        name: `${site.name}, ${site.role}`,
+        url,
+        image: imageUrl,
+        description: C.seo?.description,
+        telephone: k.phone || undefined,
+        email: k.email || undefined,
+        address: { "@type": "PostalAddress", addressCountry: "AE", addressLocality: areas[0] || undefined },
+        areaServed: areas.length ? areas.map((name) => ({ "@type": "City", name })) : undefined,
+        founder: { "@id": personId },
+        sameAs: k.instagram ? [`https://instagram.com/${k.instagram}`] : undefined,
+        makesOffer: (C.services?.items || []).map((sv) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: sv.title, description: sv.text || undefined },
+        })),
+      },
+    ],
   };
 
   const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -216,7 +243,9 @@ export async function build({ quiet = false } = {}) {
     title: esc(plain(C.seo?.title || `${site.name} — ${site.role}`)),
     description: esc(plain(C.seo?.description || C.hero?.intro || "")),
     url,
-    ogImage: shareImage ? new URL(shareImage, url).href : "",
+    ogImage: imageUrl || "",
+    siteName: esc(site.name || ""),
+    role: esc(site.role || ""),
     preload,
     "css.theme": copyHashed("css/theme.css"),
     "css.styles": copyHashed("css/styles.css"),
@@ -229,7 +258,8 @@ export async function build({ quiet = false } = {}) {
   const html = readFileSync(join(ROOT, "src", "page.html"), "utf8").replace(/\{\{([\w.]+)\}\}/g, (m, key) => (key in vars ? vars[key] : m));
   writeFileSync(join(OUT, "index.html"), html);
 
-  // Content editor, robots, sitemap
+  // Icons and other files served as-is, then the content editor, robots, sitemap
+  if (existsSync(join(ROOT, "static"))) cpSync(join(ROOT, "static"), OUT, { recursive: true });
   if (existsSync(join(ROOT, "admin"))) cpSync(join(ROOT, "admin"), join(OUT, "admin"), { recursive: true });
   writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}sitemap.xml\n`);
   writeFileSync(
