@@ -250,6 +250,11 @@ export async function build({ quiet = false } = {}) {
     "css.theme": copyHashed("css/theme.css"),
     "css.styles": copyHashed("css/styles.css"),
     "js.main": copyHashed("js/main.js"),
+    // Vercel Web Analytics: only on Vercel builds, since the script is served by Vercel
+    // (/_vercel/insights) and doesn't exist on the local preview.
+    analytics: process.env.VERCEL
+      ? `<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>\n  <script defer src="/_vercel/insights/script.js"></script>`
+      : "",
     jsonld: JSON.stringify(jsonld).replace(/</g, "\\u003c"),
     header,
     main,
